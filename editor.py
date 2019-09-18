@@ -266,6 +266,7 @@ def image_save(*args):
     image_file = filedialog.asksaveasfilename()
     im_file = open(image_file, 'w')
     im_file.write('import tkinter as tk\nroot=tk.Tk()\ncanvas=tk.Canvas(root)\n')
+    im_file.write('canvas["width"] = '+str(canvas['width'])+'\ncanvas["height"] = '+str(canvas['height'])+'\n')
     
     for i in canvas.find_all():
         if canvas.type(i) == 'line':
