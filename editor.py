@@ -267,7 +267,8 @@ def store(event):
 def image_save(*args):
     image_file = filedialog.asksaveasfilename()
     im_file = open(image_file, 'w')
-    im_file.write('import tkinter as tk\nroot=tk.Tk()\ncanvas=tk.Canvas(root)\n')
+    im_file.write('import tkinter as tk\nroot=tk.Tk()\ncanvas=tk.Canvas(root)\nroot.title("EDA-created image")\n')
+    im_file.write('#This file was created automaticly by EDA simple editor.\n#See https://github.com/DedkovEA/lab_3/blob/master/editor.py for source code.\n')
     im_file.write('canvas["width"] = '+str(canvas['width'])+'\ncanvas["height"] = '+str(canvas['height'])+'\n')
     
     for i in canvas.find_all():
@@ -307,6 +308,7 @@ button_pressed = False
 polygon_list = []
 
 root = tk.Tk()
+root.title('EDA simple editor')
 
 instruments = tk.Frame(root)
 canvas = tk.Canvas(root)
