@@ -131,13 +131,12 @@ def close_pen_width_dial(dial, width):
 
 def exec_image_loading():
     image_file = filedialog.askopenfilename()
-    global pil_image
+    global pil_image, image, background
     pil_image = Image.open(image_file)
     size = pil_image.size
-    global image
     image = ImageTk.PhotoImage(pil_image)
     canvas.configure(width = size[0], height = size[1])
-    canvas.create_image(0, 0, anchor="nw", image = image)
+    background = canvas.create_image(0, 0, anchor="nw", image = image)
 
 
 
@@ -261,6 +260,9 @@ def undo(event):
     canvas.delete('last')
 
 
+def store(event):
+    canvas.tag_raise(background, 'last')
+
 
 def image_save(*args):
     image_file = filedialog.asksaveasfilename()
@@ -352,6 +354,6 @@ canvas.bind('<Button-1>', on_mouse_button1)
 canvas.bind('<Button-3>', on_mouse_button2)
 canvas.bind('<B1-Motion>', on_drawing)
 root.bind('<Control-KeyPress-z>', undo)
-
+root.bind('<Control-KeyPress-i>', store)
 
 root.mainloop()
