@@ -40,7 +40,9 @@ def exec_brush_color_dial(*args):
     entry_green = tk.Entry(dial, textvariable=green)
     entry_blue = tk.Entry(dial, textvariable=blue)
 
-    ok_button = tk.Button(dial, text='Ok', command=lambda: close_brush_color_dial(red, green, blue, dial))
+    ok_button = tk.Button(dial, text='Ok',
+                          command=lambda: close_brush_color_dial(red, green,
+                                                                 blue, dial))
 
     tk.Label(dial, text='red').grid(row=0, column=0)
     tk.Label(dial, text='green').grid(row=1, column=0)
@@ -52,7 +54,8 @@ def exec_brush_color_dial(*args):
 
     ok_button.grid(row=3, column=0, columnspan=2)
 
-    dial.bind('<Return>', lambda e: close_brush_color_dial(red, green, blue, dial))
+    dial.bind('<Return>',
+              lambda e: close_brush_color_dial(red, green, blue, dial))
     entry_red.focus()
 
 
@@ -73,7 +76,9 @@ def exec_pen_color_dial(*args):
     entry_green = tk.Entry(dial, textvariable=green)
     entry_blue = tk.Entry(dial, textvariable=blue)
 
-    ok_button = tk.Button(dial, text='Ok', command=lambda: close_pen_color_dial(red, green, blue, dial))
+    ok_button = tk.Button(dial, text='Ok',
+                          command=lambda: close_pen_color_dial(red, green, blue,
+                                                               dial))
 
     tk.Label(dial, text='red').grid(row=0, column=0)
     tk.Label(dial, text='green').grid(row=1, column=0)
@@ -85,7 +90,8 @@ def exec_pen_color_dial(*args):
 
     ok_button.grid(row=3, column=0, columnspan=2)
 
-    dial.bind('<Return>', lambda e: close_pen_color_dial(red, green, blue, dial))
+    dial.bind('<Return>',
+              lambda e: close_pen_color_dial(red, green, blue, dial))
     entry_red.focus()
 
 
@@ -103,13 +109,16 @@ def exec_pen_width_dial(*args):
     width = tk.StringVar()
     entry_width = tk.Entry(dial, textvariable=width)
 
-    ok_button = tk.Button(dial, text='Ok', command=lambda: close_pen_width_dial(dial, int(width.get())))
+    ok_button = tk.Button(dial, text='Ok',
+                          command=lambda: close_pen_width_dial(dial, int(
+                              width.get())))
 
     entry_width.grid(row=0, column=1)
 
     ok_button.grid(row=1, column=0, columnspan=2)
 
-    dial.bind('<Return>', lambda e: close_pen_width_dial(dial, int(width.get())))
+    dial.bind('<Return>',
+              lambda e: close_pen_width_dial(dial, int(width.get())))
     entry_width.focus()
 
 
@@ -171,13 +180,15 @@ def on_mouse_motion(event):
 
 
 def on_mouse_button1(event):
-    global button_pressed, current_object, first_x, first_y, polygon_list, brush_color, pen_color, pen_width
+    global button_pressed, current_object, first_x, first_y, polygon_list
+    global brush_color, pen_color, pen_width
     if (tool == 'line') and (not button_pressed):
         button_pressed = True
         canvas.dtag('last', 'last')
         first_x = event.x
         first_y = event.y
-        current_object = canvas.create_line(first_x, first_y, first_x, first_y, tags=('last'))
+        current_object = canvas.create_line(first_x, first_y, first_x, first_y,
+                                            tags=('last'))
     elif (tool == 'line') and button_pressed:
         canvas.coords(current_object, first_x, first_y, event.x, event.y)
         canvas.itemconfigure(current_object, fill=pen_color, width=pen_width)
@@ -187,20 +198,24 @@ def on_mouse_button1(event):
         canvas.dtag('last', 'last')
         first_x = event.x
         first_y = event.y
-        current_object = canvas.create_rectangle(first_x, first_y, first_x, first_y, tags=('last'))
+        current_object = canvas.create_rectangle(first_x, first_y, first_x,
+                                                 first_y, tags=('last'))
     elif (tool == 'rect') and button_pressed:
         canvas.coords(current_object, first_x, first_y, event.x, event.y)
-        canvas.itemconfigure(current_object, fill=brush_color, outline=pen_color, width=pen_width)
+        canvas.itemconfigure(current_object, fill=brush_color,
+                             outline=pen_color, width=pen_width)
         button_pressed = False
     elif (tool == 'ellips') and (not button_pressed):
         button_pressed = True
         canvas.dtag('last', 'last')
         first_x = event.x
         first_y = event.y
-        current_object = canvas.create_oval(first_x, first_y, first_x, first_y, tags=('last'))
+        current_object = canvas.create_oval(first_x, first_y, first_x, first_y,
+                                            tags=('last'))
     elif (tool == 'ellips') and button_pressed:
         canvas.coords(current_object, first_x, first_y, event.x, event.y)
-        canvas.itemconfigure(current_object, fill=brush_color, outline=pen_color, width=pen_width)
+        canvas.itemconfigure(current_object, fill=brush_color,
+                             outline=pen_color, width=pen_width)
         button_pressed = False
     elif (tool == 'polygon') and (not button_pressed):
         button_pressed = True
@@ -208,13 +223,15 @@ def on_mouse_button1(event):
         first_x = event.x
         first_y = event.y
         polygon_list = [first_x, first_y]
-        current_object = canvas.create_line(first_x, first_y, first_x, first_y, tags=('poly'))
+        current_object = canvas.create_line(first_x, first_y, first_x, first_y,
+                                            tags=('poly'))
     elif (tool == 'polygon') and button_pressed:
         first_x = event.x
         first_y = event.y
         polygon_list.append(first_x)
         polygon_list.append(first_y)
-        current_object = canvas.create_line(first_x, first_y, first_x, first_y, tags=('poly'))
+        current_object = canvas.create_line(first_x, first_y, first_x, first_y,
+                                            tags=('poly'))
     elif (tool == 'draw') and (not button_pressed):
         canvas.dtag('last', 'last')
         first_x = event.x
@@ -228,7 +245,8 @@ def on_mouse_button2(event):
     if (tool == 'polygon') and button_pressed:
         polygon_list.append(event.x)
         polygon_list.append(event.y)
-        canvas.create_polygon(polygon_list, fill=brush_color, outline=pen_color, width=pen_width, tags=('last'))
+        canvas.create_polygon(polygon_list, fill=brush_color, outline=pen_color,
+                              width=pen_width, tags=('last'))
         canvas.delete('poly')
         button_pressed = False
     elif tool == 'get_color_from_image':
@@ -238,7 +256,8 @@ def on_mouse_button2(event):
 def on_drawing(event):
     if tool == 'draw':
         global first_x, first_y, pen_color, pen_width
-        canvas.create_line(first_x, first_y, event.x, event.y, width=pen_width, fill=pen_color, tags=('last'))
+        canvas.create_line(first_x, first_y, event.x, event.y, width=pen_width,
+                           fill=pen_color, tags=('last'))
         first_x, first_y = event.x, event.y
 
 
@@ -253,28 +272,43 @@ def store(event):
 def image_save(*args):
     image_file = filedialog.asksaveasfilename()
     im_file = open(image_file, 'w')
-    im_file.write('import tkinter as tk\nroot=tk.Tk()\ncanvas=tk.Canvas(root)\nroot.title("EDA-created image")\n')
     im_file.write(
-        '#This file was created automaticly by EDA simple editor.\n#See '
-        'https://github.com/DedkovEA/lab_3/blob/master/editor.py for source code.\n')
-    im_file.write('canvas["width"] = ' + str(canvas['width']) + '\ncanvas["height"] = ' + str(canvas['height']) + '\n')
+        'import tkinter as tk\nroot=tk.Tk()\ncanvas=tk.Canvas(root)'
+        '\nroot.title("EDA-created image")\n')
+    im_file.write(
+        '#This file was created automatically by EDA simple editor.\n#See '
+        'https://github.com/DedkovEA/lab_3/blob/master/editor.py'
+        ' for source code.\n')
+    im_file.write('canvas["width"] = ' + str(
+        canvas['width']) + '\ncanvas["height"] = ' + str(
+        canvas['height']) + '\n')
 
     for i in canvas.find_all():
         if canvas.type(i) == 'line':
-            im_file.write('canvas.create_line(' + str(canvas.coords(i))[1:-1] + ',fill = "' + str(
-                canvas.itemcget(i, 'fill')) + '",width=' + str(canvas.itemcget(i, 'width')) + ')\n')
+            im_file.write('canvas.create_line(' + str(canvas.coords(i))[
+                                                  1:-1] + ',fill = "' + str(
+                canvas.itemcget(i, 'fill')) + '",width=' + str(
+                canvas.itemcget(i, 'width')) + ')\n')
         elif canvas.type(i) == 'rectangle':
-            im_file.write('canvas.create_rectangle(' + str(canvas.coords(i))[1:-1] + ',fill = "' + str(
-                canvas.itemcget(i, 'fill')) + '",width=' + str(canvas.itemcget(i, 'width')) + ',outline = "' + str(
-                canvas.itemcget(i, 'outline')) + '")\n')
+            pass
         elif canvas.type(i) == 'oval':
-            im_file.write('canvas.create_oval(' + str(canvas.coords(i))[1:-1] + ',fill = "' + str(
-                canvas.itemcget(i, 'fill')) + '",width=' + str(canvas.itemcget(i, 'width')) + ',outline = "' + str(
+            im_file.write('canvas.create_rectangle(' + str(canvas.coords(i))[
+                                                       1:-1] + ',fill = "' +
+                          str(
+                              canvas.itemcget(i, 'fill')) + '",width=' + str(
+                canvas.itemcget(i, 'width')) + ',outline = "' + str(
+                canvas.itemcget(i, 'outline')) + '")\n')
+            im_file.write('canvas.create_oval(' + str(canvas.coords(i))[
+                                                  1:-1] + ',fill = "' + str(
+                canvas.itemcget(i, 'fill')) + '",width=' + str(
+                canvas.itemcget(i, 'width')) + ',outline = "' + str(
                 canvas.itemcget(i, 'outline')) + '")\n')
 
         elif canvas.type(i) == 'polygon':
-            im_file.write('canvas.create_polygon(' + str(canvas.coords(i))[1:-1] + ',fill = "' + str(
-                canvas.itemcget(i, 'fill')) + '",width=' + str(canvas.itemcget(i, 'width')) + ',outline = "' + str(
+            im_file.write('canvas.create_polygon(' + str(canvas.coords(i))[
+                                                     1:-1] + ',fill = "' + str(
+                canvas.itemcget(i, 'fill')) + '",width=' + str(
+                canvas.itemcget(i, 'width')) + ',outline = "' + str(
                 canvas.itemcget(i, 'outline')) + '")\n')
 
     im_file.write('canvas.grid(sticky="nwes")\nroot.mainloop()')
@@ -308,11 +342,16 @@ button_rect = tk.Button(instruments, text='4', command=rect_press)
 button_draw = tk.Button(instruments, text='s', command=draw_press)
 button_size = tk.Button(instruments, text='sz', command=change_size)
 button_polygon = tk.Button(instruments, text='pg', command=polygon_press)
-button_get_color_from_image = tk.Button(instruments, text='gc', command=get_color_from_image)
-button_brush_color = tk.Button(instruments, text='bc', command=exec_brush_color_dial)
-button_pen_color = tk.Button(instruments, text='pc', command=exec_pen_color_dial)
-button_pen_width = tk.Button(instruments, text='pw', command=exec_pen_width_dial)
-button_image_load = tk.Button(instruments, text='il', command=exec_image_loading)
+button_get_color_from_image = tk.Button(instruments, text='gc',
+                                        command=get_color_from_image)
+button_brush_color = tk.Button(instruments, text='bc',
+                               command=exec_brush_color_dial)
+button_pen_color = tk.Button(instruments, text='pc',
+                             command=exec_pen_color_dial)
+button_pen_width = tk.Button(instruments, text='pw',
+                             command=exec_pen_width_dial)
+button_image_load = tk.Button(instruments, text='il',
+                              command=exec_image_loading)
 button_image_save = tk.Button(instruments, text='is', command=image_save)
 
 instruments.grid(row=0, column=0)
