@@ -77,7 +77,8 @@ def exec_pen_color_dial(*args):
     entry_blue = tk.Entry(dial, textvariable=blue)
 
     ok_button = tk.Button(dial, text='Ok',
-                          command=lambda: close_pen_color_dial(red, green, blue,
+                          command=lambda: close_pen_color_dial(red, green,
+                                                               blue,
                                                                dial))
 
     tk.Label(dial, text='red').grid(row=0, column=0)
@@ -241,11 +242,13 @@ def on_mouse_button1(event):
 
 
 def on_mouse_button2(event):
-    global tool, polygon_list, button_pressed, brush_color, pen_color, pen_width
+    global tool, polygon_list, button_pressed, brush_color
+    global pen_color, pen_width
     if (tool == 'polygon') and button_pressed:
         polygon_list.append(event.x)
         polygon_list.append(event.y)
-        canvas.create_polygon(polygon_list, fill=brush_color, outline=pen_color,
+        canvas.create_polygon(polygon_list, fill=brush_color,
+                              outline=pen_color,
                               width=pen_width, tags=('last'))
         canvas.delete('poly')
         button_pressed = False

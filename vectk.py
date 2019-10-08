@@ -15,14 +15,15 @@ for i in range(Size[1]):
     for j in range(Size[0]):
         if pic[x_start, i] != pic[j, i]:
             f.write(
-                'canvas.create_line(' + str(x_start) + ',' + str(i) + ',' + str(
+                'canvas.create_line(' + str(x_start) + ',' + str(
+                    i) + ',' + str(
                     j - 1) + ',' + str(
                     i) + ',' + str() + 'fill = "' + (
-                            '#%02x%02x%02x' % (pic[x_start, i])) + '")\n')
+                        '#%02x%02x%02x' % (pic[x_start, i])) + '")\n')
             x_start = j
     f.write('canvas.create_line(' + str(x_start) + ',' + str(i) + ',' + str(
         j - 1) + ',' + str(
         i) + ',' + str() + 'fill = "' + (
-                        '#%02x%02x%02x' % (pic[x_start, i])) + '")\n')
+                    '#%02x%02x%02x' % (pic[x_start, i])) + '")\n')
 
 f.write('canvas.pack()\ntkinter.mainloop()')
