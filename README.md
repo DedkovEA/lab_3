@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.com/DedkovEA/lab_3.svg?branch=master)](https://travis-ci.com/DedkovEA/lab_3)
